@@ -58,11 +58,15 @@
 		#size-cells = <0>;
 		no-gpio-delays;
 
-		clock-gpios = <&gpio ASPEED_GPIO(I, 0) GPIO_ACTIVE_HIGH>;
-		data-gpios = <&gpio ASPEED_GPIO(I, 1) GPIO_ACTIVE_HIGH>;
+		memory-region = <&coldfire_memory>;
+		aspeed,sram = <&sram>;
+		aspeed,cvic = <&cvic>;
+
+		clock-gpios = <&gpio ASPEED_GPIO(AA, 0) GPIO_ACTIVE_HIGH>;
+		data-gpios = <&gpio ASPEED_GPIO(AA, 2) GPIO_ACTIVE_HIGH>;
 		mux-gpios = <&gpio ASPEED_GPIO(I, 2) GPIO_ACTIVE_HIGH>;
 		enable-gpios = <&gpio ASPEED_GPIO(I, 3) GPIO_ACTIVE_HIGH>;
-		trans-gpios = <&gpio ASPEED_GPIO(H, 7) GPIO_ACTIVE_HIGH>;
+		trans-gpios = <&gpio ASPEED_GPIO(R, 2) GPIO_ACTIVE_HIGH>;
 	};
 
 	gpio-keys {
@@ -148,7 +152,8 @@
 
 	    power {
 		    label = "power";
-		    gpios = <&gpio ASPEED_GPIO(B, 2) GPIO_ACTIVE_LOW>;
+		    /* TODO: dummy gpio */
+		    gpios = <&gpio ASPEED_GPIO(R, 1) GPIO_ACTIVE_LOW>;
 	    };
 
 	};
@@ -739,6 +744,15 @@
 
 &pinctrl {
 	aspeed,external-nodes = <&gfx &lhc>;
+};
+
+&gpio {
+	pin_gpio_b7 {
+		gpio-hog;
+		gpios = <ASPEED_GPIO(B,7) GPIO_ACTIVE_LOW>;
+		output-high;
+		line-name = "BMC_INIT_OK";
+	};
 };
 
 &wdt1 {

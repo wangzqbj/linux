@@ -32,11 +32,6 @@
 			reg = <0x98000000 0x04000000>; /* 64M */
 		};
 
-		coldfire_memory: codefire_memory@9ef00000 {
-			reg = <0x9ef00000 0x00100000>;
-			no-map;
-		};
-
 		gfx_memory: framebuffer {
 			size = <0x01000000>;
 			alignment = <0x01000000>;
@@ -53,14 +48,10 @@
 	};
 
 	fsi: gpio-fsi {
-		compatible = "aspeed,ast2500-cf-fsi-master", "fsi-master";
+		compatible = "fsi-master-gpio", "fsi-master";
 		#address-cells = <2>;
 		#size-cells = <0>;
 		no-gpio-delays;
-
-		memory-region = <&coldfire_memory>;
-		aspeed,sram = <&sram>;
-		aspeed,cvic = <&cvic>;
 
 		clock-gpios = <&gpio ASPEED_GPIO(AA, 0) GPIO_ACTIVE_HIGH>;
 		data-gpios = <&gpio ASPEED_GPIO(AA, 2) GPIO_ACTIVE_HIGH>;
